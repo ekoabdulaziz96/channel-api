@@ -1,7 +1,7 @@
 from apps.modules.channels._abstracts import MarketplaceAbstract
 
-class Shopee(MarketplaceAbstract):
 
+class Shopee(MarketplaceAbstract):
     def sync_product(self):
         print("Shopee: process to sync product stock")
 

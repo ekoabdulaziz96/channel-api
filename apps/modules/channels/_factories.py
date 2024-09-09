@@ -1,8 +1,8 @@
-from apps.modules.channels import shopee, tokopedia, blibli
+from apps.modules.channels import blibli, shopee, tokopedia
 from apps.modules.channels._abstracts import MarketplaceAbstract
 
 
-class ChannelFactory():
+class ChannelFactory:
     def __init__(self):
         self._set_factory()
 

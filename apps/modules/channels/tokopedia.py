@@ -1,7 +1,7 @@
 from apps.modules.channels._abstracts import MarketplaceAbstract
 
-class Tokopedia(MarketplaceAbstract):
 
+class Tokopedia(MarketplaceAbstract):
     def sync_product(self):
         print("Tokopedia: process to sync product stock")
 

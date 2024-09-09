@@ -1,17 +1,16 @@
 from celery import shared_task
 from django.utils import timezone
 
-from apps.app_channels.models import StockUpdate, OrderUpdate
+from apps.app_channels.models import OrderUpdate, StockUpdate
 from apps.modules.channels._factories import channel_factory
 
 
 @shared_task
 def sync_stock_update_task(product_id, name, stock):
-    
     stock_updates = StockUpdate.objects.filter(product_id=product_id).all()
     if not stock_updates:
         return "no stock to sync"
-    
+
     for stock_update in stock_updates:
         stock_update.name = name
         stock_update.stock = stock
@@ -20,8 +19,8 @@ def sync_stock_update_task(product_id, name, stock):
         sync_channel_stock_task.delay(stock_update.id)
         stock_update.save()
 
-
     return "success"
+
 
 @shared_task
 def sync_channel_stock_task(stock_id):

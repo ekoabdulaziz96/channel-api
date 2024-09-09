@@ -57,7 +57,7 @@ class StockUpdate(SafeDeleteModel):
         ("failed", "failed"),
     )
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="channel_stock_updates")
-    channel_product_id = models.CharField(max_length=255, default="")   # product_id from channel
+    channel_product_id = models.CharField(max_length=255, default="")  # product_id from channel
     product_id = models.UUIDField()
     name = models.CharField(max_length=255, default="")
     stock = models.PositiveIntegerField(default=0)

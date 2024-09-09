@@ -1,8 +1,7 @@
 from django.conf.urls import include
 from django.urls import path
 
-from apps.app_channels.urls import v1
-from apps.app_channels.urls import webhooks
+from apps.app_channels.urls import v1, webhooks
 
 app_name = "app_channels"
 

@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import BasePermission
 
-from apps.app_channels.models import Store, Channel
+from apps.app_channels.models import Channel, Store
 
 
 class IsAuthenticatedStore(BasePermission):
@@ -30,5 +30,5 @@ class IsAuthenticatedShopee(BasePermission):
         api_secret = request.headers.get("Api-Secret", None)
         channel = Channel.objects.filter(api_secret=api_secret).first()
         if not channel:
-            return False 
+            return False
         return api_secret == channel.api_secret

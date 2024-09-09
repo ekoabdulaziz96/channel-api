@@ -80,6 +80,7 @@ class OrderUpdateAdmin(admin.ModelAdmin):
     display_store.short_description = "Store"
     display_channel.short_description = "Channel"
 
+
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(StockUpdate, StockUpdateAdmin)

@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
 
+
 class MarketplaceException(BaseException):
     pass
 
-class MarketplaceAbstract(ABC):
 
+class MarketplaceAbstract(ABC):
     @abstractmethod
     def sync_product(self):
         raise MarketplaceException("not implemented yet!")

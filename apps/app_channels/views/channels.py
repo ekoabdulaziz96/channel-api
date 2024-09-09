@@ -8,9 +8,9 @@ from apps.app_channels.paginations import StockPagination
 from apps.app_channels.permissions import IsAuthenticatedAppCommerce, IsAuthenticatedStore
 from apps.app_channels.serializers.channels import (
     ChannelSerializer,
-    ChannelStockSerializer, 
-    StoreSyncSerializer, 
+    ChannelStockSerializer,
     StockSyncSerializer,
+    StoreSyncSerializer,
 )
 
 
@@ -21,7 +21,7 @@ class MixinChannel:
             raise NotFound(app_settings.MSG_CHANNEL_NOT_FOUND)
 
         return channel
-    
+
 
 class StoreSync(generics.CreateAPIView):
     permission_classes = [IsAuthenticatedAppCommerce]
@@ -45,7 +45,7 @@ class StockSync(generics.CreateAPIView):
         serializer.process()
 
         return Response(data="sync stock still in progress.", status=status.HTTP_200_OK)
-    
+
 
 class ChannelDetail(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedStore]
@@ -58,6 +58,7 @@ class StockList(generics.ListAPIView, MixinChannel):
     permission_classes = [IsAuthenticatedStore]
     serializer_class = ChannelStockSerializer
     pagination_class = StockPagination
+    ordering = ("-created_at",)
 
     def get_queryset(self):
         channel = self.get_channel()

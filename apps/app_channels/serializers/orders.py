@@ -1,8 +1,9 @@
 from rest_framework import serializers
+
 from apps.app_channels.models import OrderUpdate, StockUpdate
+from apps.app_channels.tasks import sync_order_status_task
 from apps.bases.serializers import BaseModelSerializer, BaseSerializer, ChoiceDisplayField
 from apps.modules.app_commerce import app_commerce
-from apps.app_channels.tasks import sync_order_status_task
 
 
 class OrderUpdateSerializer(BaseModelSerializer):
@@ -28,6 +29,7 @@ class OrderItemSerializer(BaseSerializer):
 
         return data
 
+
 class OrderShopeeSerializer(BaseSerializer):
     order_id = serializers.CharField(required=True)
     items = OrderItemSerializer(many=True)
@@ -39,9 +41,7 @@ class OrderShopeeSerializer(BaseSerializer):
         app_commerce.sync_order_open(data)
 
         order, _ = OrderUpdate.objects.get_or_create(
-            channel=kwargs["channel"], 
-            order_id=self.validated_data["order_id"], 
-            defaults={"status": "open"}
+            channel=kwargs["channel"], order_id=self.validated_data["order_id"], defaults={"status": "open"}
         )
-        
+
         return OrderUpdateSerializer(order).data

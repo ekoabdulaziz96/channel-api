@@ -1,11 +1,8 @@
-from itertools import chain
-
 from rest_framework import serializers
 
-from apps.app_channels import settings as app_settings
-from apps.app_channels.models import Channel, Store, StockUpdate
-from apps.bases.serializers import BaseModelSerializer, BaseSerializer, ChoiceDisplayField
+from apps.app_channels.models import Channel, StockUpdate, Store
 from apps.app_channels.tasks import sync_stock_update_task
+from apps.bases.serializers import BaseModelSerializer, ChoiceDisplayField
 
 
 class StoreSyncSerializer(BaseModelSerializer):
@@ -35,12 +32,9 @@ class ChannelSerializer(BaseModelSerializer):
 
     class Meta:
         model = Channel
-        fields = [
-            "store", "slug", "name", "types",
-            "account_id", "account_name", "api_key", "api_secret"
-        ]
+        fields = ["store", "slug", "name", "types", "account_id", "account_name", "api_key", "api_secret"]
 
-        
+
 class StockSyncSerializer(BaseModelSerializer):
     product_id = serializers.UUIDField(required=True)
     name = serializers.CharField(required=True)
@@ -59,7 +53,4 @@ class ChannelStockSerializer(BaseModelSerializer):
 
     class Meta:
         model = StockUpdate
-        fields = [
-            "channel_product_id", "product_id", "name", "stock",
-            "sync_status", "last_sync_at", "err_message"
-        ]
+        fields = ["channel_product_id", "product_id", "name", "stock", "sync_status", "last_sync_at", "err_message"]
